@@ -28,7 +28,7 @@
             $user = $lesInformations->fetch_assoc();
           
             ?>
-            <img src="user.jpg" alt="Portrait de l'utilisatrice" />
+            <img src="./licorne-arc-en-ciel-licorne.jpeg" alt="Portrait de l'utilisatrice" />
             <section>
                 <h3>Présentation</h3>
                 <p>Sur cette page vous trouverez tous les post des utilisatrices
