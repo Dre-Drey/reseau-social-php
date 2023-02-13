@@ -14,32 +14,17 @@
     ?>
     <div id="wrapper">
         <?php
-        /**
-         * Cette page est similaire à wall.php ou feed.php 
-         * mais elle porte sur les mots-clés (tags)
-         */
-        /**
-         * Etape 1: Le mur concerne un mot-clé en particulier
-         */
         $tagId = intval($_GET['tag_id']);
         ?>
         <?php
-        /**
-         * Etape 2: se connecter à la base de donnée
-         */
         $mysqli = new mysqli("localhost", "root", "root", "socialnetwork");
         ?>
 
         <aside>
             <?php
-            /**
-             * Etape 3: récupérer le nom du mot-clé
-             */
             $laQuestionEnSql = "SELECT * FROM tags WHERE id= '$tagId' ";
             $lesInformations = $mysqli->query($laQuestionEnSql);
             $tag = $lesInformations->fetch_assoc();
-            //@todo: afficher le résultat de la ligne ci dessous, remplacer XXX par le label et effacer la ligne ci-dessous
-            // echo "<pre>" . print_r($tag, 1) . "</pre>";
             ?>
             <img src="user.jpg" alt="Portrait de l'utilisatrice" />
             <section>
@@ -53,9 +38,6 @@
         </aside>
         <main>
             <?php
-            /**
-             * Etape 3: récupérer tous les messages avec un mot clé donné
-             */
             $laQuestionEnSql = "
                     SELECT posts.content,
                     posts.created,
@@ -76,13 +58,7 @@
             if (!$lesInformations) {
                 echo ("Échec de la requete : " . $mysqli->error);
             }
-
-            /**
-             * Etape 4: @todo Parcourir les messsages et remplir correctement le HTML avec les bonnes valeurs php
-             */
             while ($post = $lesInformations->fetch_assoc()) {
-
-                // echo "<pre>" . print_r($post, 1) . "</pre>";
             ?>
                 <article>
                     <h3>
@@ -98,8 +74,6 @@
                     </footer>
                 </article>
             <?php } ?>
-
-
         </main>
     </div>
 </body>
