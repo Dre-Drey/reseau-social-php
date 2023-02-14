@@ -1,3 +1,12 @@
+<?php
+session_start();
+if (isset($_SESSION['connected_id'])) {
+$userId = intval($_SESSION['connected_id']);
+} else {header("location:login.php");
+    exit();
+}
+?>
+
 <!doctype html>
 <html lang="fr">
 
@@ -13,9 +22,7 @@
     include 'header.php'
     ?>
     <div id="wrapper">
-        <?php
-        $userId = intval($_GET['user_id']);
-        ?>
+       
         <?php
         $mysqli = new mysqli("localhost", "root", "root", "socialnetwork");
         ?>
