@@ -61,7 +61,7 @@ $userId = intval($_SESSION['connected_id']);
                 $new_like = $mysqli->real_escape_string($new_like);
                 $lInstructionSql = "INSERT INTO likes (id, user_id, post_id) "
                         . "VALUES (NULL, "
-                        . "'" . $userID . "', "
+                        . "'" . $userId . "', "
                         . "'" . $new_like . "'"
                         . ");";
                 $ok = $mysqli->query($lInstructionSql);
@@ -108,8 +108,8 @@ $userId = intval($_SESSION['connected_id']);
                     <footer>
                         <small>
                         <form action="feed.php" method="post">
-                            <input type="submit" name="submit" value="♥ <?php echo $post["like_number"] ?>">
                             <input type="hidden" name="like" value="<?php echo $post["id"] ?>">
+                            <input type="submit" name="submit" value="♥ <?php echo $post["like_number"] ?>">
                         </form>
                         </small>
                         <?php print_r($post); ?>
