@@ -50,6 +50,7 @@ $userId = intval($_SESSION['connected_id']);
 
         <!-- Formulaire des likes -->
         <?php $enCoursDeTraitement = isset($_POST['like']);
+        echo $enCoursDeTraitement;
                 if ($enCoursDeTraitement) {
                     // on ne fait ce qui suit que si un formulaire a été soumis.
                     // Etape 2: récupérer ce qu'il y a dans le formulaire @todo: c'est là que votre travaille se situe
@@ -57,20 +58,21 @@ $userId = intval($_SESSION['connected_id']);
                     echo "<pre>" . print_r($_POST, 1) . "</pre>";
                     // et complétez le code ci dessous en remplaçant les ???
                     $new_like = $_POST['like'];
+                    $new_like = $mysqli->real_escape_string($new_like);
+                
+                    $lInstructionSql = "INSERT INTO likes (id, user_id, post_id) "
+                            . "VALUES (NULL, "
+                            . "'" . $_SESSION["connected_id"] . "', "
+                            . "'" . $new_like . "'"
+                            . ");";
+                    $ok = $mysqli->query($lInstructionSql);
+                    if (!$ok) {
+                    echo "L'inscription a échouée : " . $mysqli->error;
+                            } else {
+                                header("Refresh:0");
+                            }
                 }
-                $new_like = $mysqli->real_escape_string($new_like);
-                $lInstructionSql = "INSERT INTO likes (id, user_id, post_id) "
-                        . "VALUES (NULL, "
-                        . "'" . $userId . "', "
-                        . "'" . $new_like . "'"
-                        . ");";
-                $ok = $mysqli->query($lInstructionSql);
-                if (!$ok) {
-                echo "L'inscription a échouée : " . $mysqli->error;
-                        } else {
-                            echo "Votre inscription est un succès : " . $new_alias;
-                            echo " <a href='login.php'>Connectez-vous.</a>";
-                        }
+               
         ?>
             <?php
             $laQuestionEnSql = "
@@ -92,6 +94,7 @@ $userId = intval($_SESSION['connected_id']);
                     ORDER BY posts.created DESC  
                     ";
             $lesInformations = $mysqli->query($laQuestionEnSql);
+           
             if (!$lesInformations) {
                 echo ("Échec de la requete : " . $mysqli->error);
             }
